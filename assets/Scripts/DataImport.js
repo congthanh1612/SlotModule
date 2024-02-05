@@ -9,6 +9,7 @@ cc.Class({
 
     onLoad () {
         this.initFileSelector();
+        
     },
 
     initFileSelector() {

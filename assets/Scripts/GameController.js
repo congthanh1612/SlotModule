@@ -15,10 +15,13 @@ cc.Class({
         dataStorage.instance = new dataStorage();
         cc.director.getPhysicsManager().enabled = true;
         this.dataPopup.node.on('SHOWUP_DATA', this.showupData, this)
+        cc.log(this.matrixInput.enabled)
     },
 
     playAnimation(data) {
+        this.onInputState(false);
         this.reelSymbol.playReel(data, () => { 
+            this.onInputState(true);
             cc.warn("FINISHED!!!");
         });
     },
@@ -32,6 +35,7 @@ cc.Class({
     },
 
     resetGame() {
+        this.onInputState(true);
         this.reelSymbol.reset();
         dataStorage.instance.clearData();
         this.dataPopup.string = '';
@@ -68,6 +72,11 @@ cc.Class({
             inputString += `Matrix [${item.matrix.join(",")}], RemoveId [${item.removeIndex.join(",")}]\n`;
         });
         this.dataPopup.string = inputString;
+    },
+
+    onInputState(enable){
+        this.matrixInput.enabled = enable;
+        this.removeIndexInput.enabled = enable;
     },
  
 });
